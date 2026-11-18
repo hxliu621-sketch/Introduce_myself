@@ -1,4 +1,4 @@
-@charset "UTF-8";
+﻿@charset "UTF-8";
 
 /* ============================================================
    YG · Introduce_myself
@@ -9,7 +9,7 @@
 :root{
   --bg:#070a13;
   --bg-2:#0b1020;
-  --surface:rgba(10,14,28,.62);
+  --surface:rgba(9,13,26,.76);
   --surface-2:rgba(255,255,255,.10);
   --border:rgba(255,255,255,.12);
   --border-strong:rgba(255,255,255,.24);
@@ -145,6 +145,7 @@ body.has-pointer .cursor-glow{opacity:1;}
   border-bottom-color:var(--border);
 }
 html[data-theme="light"] .nav.scrolled{background:rgba(244,246,252,.86);}
+html[data-theme="light"] .footer p{color:var(--text-2);text-shadow:none;}
 
 .logo{display:flex;align-items:center;gap:9px;font-weight:800;font-size:1.1rem;letter-spacing:.02em;}
 .logo-name{font-size:.92rem;font-weight:700;letter-spacing:.02em;color:var(--text);}
@@ -510,7 +511,7 @@ main{position:relative;z-index:3;}
 .contact{display:grid;place-items:center;}
 .contact-card{
   width:100%;max-width:720px;text-align:center;
-  padding:clamp(34px,6vw,62px) clamp(22px,4vw,52px);
+  padding:clamp(34px,6vw,60px) clamp(22px,4vw,52px) clamp(28px,4vw,44px);
   position:relative;overflow:hidden;
 }
 .contact-card::after{
@@ -527,7 +528,7 @@ main{position:relative;z-index:3;}
 /* ---------- 13. FOOTER ---------- */
 .footer{position:relative;z-index:3;padding-top:70px;text-align:center;}
 .wave{display:block;width:100%;height:70px;fill:var(--grad-soft);opacity:.7;}
-.footer p{font-size:.78rem;color:var(--text-3);padding:18px 0 34px;letter-spacing:.08em;}
+.footer p{font-size:.78rem;color:var(--text-2);padding:18px 0 34px;letter-spacing:.08em;text-shadow:0 1px 14px rgba(0,0,0,.5);}
 
 /* ---------- 14. 进场动画 ----------
    渐进增强：只有 JS 生效（html.js）时才把 .reveal 藏起来。
@@ -609,4 +610,75 @@ body.lang-anim main,body.lang-anim header,body.lang-anim footer{
   }
   .reveal{opacity:1;transform:none;}
   .hero-title .name-glow{opacity:1;transform:none;}
+}
+
+/* ============================================================
+   17. 精简版新增：技能分组 / 首屏胶囊 / 联系方式
+   ============================================================ */
+
+/* 头像（内联 SVG） */
+.avatar{display:block;}
+
+/* 首屏胶囊 */
+.hero-chips{
+  display:flex;flex-wrap:wrap;gap:10px;justify-content:center;margin-top:26px;
+}
+.hero-chips li{
+  padding:8px 16px;border-radius:99px;font-size:.82rem;color:var(--text-2);
+  background:var(--surface);border:1px solid var(--border);
+  backdrop-filter:blur(10px);
+  transition:transform .4s var(--ease),border-color .35s,color .3s;
+}
+.hero-chips li:hover{transform:translateY(-3px);border-color:var(--border-strong);color:var(--text);}
+
+/* 技能分组卡 */
+.group-grid{display:grid;gap:18px;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));}
+.group{
+  padding:26px 24px;position:relative;overflow:hidden;transform-style:preserve-3d;
+}
+.group::before{
+  content:"";position:absolute;inset:0;opacity:0;pointer-events:none;
+  background:radial-gradient(420px circle at var(--mx,50%) var(--my,50%),rgba(124,92,255,.15),transparent 62%);
+  transition:opacity .5s var(--ease-soft);
+}
+.group:hover::before{opacity:1;}
+.group:hover{border-color:var(--border-strong);}
+.group h3{font-size:1.06rem;margin:14px 0 8px;}
+.group p{color:var(--text-2);font-size:.9rem;line-height:1.75;}
+
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:16px;}
+.chips li{
+  padding:5px 11px;border-radius:9px;font-size:.76rem;letter-spacing:.02em;
+  color:var(--text-2);background:var(--surface-2);border:1px solid var(--border);
+  cursor:default;
+  transition:transform .35s var(--ease),color .3s,border-color .3s;
+}
+.chips li:hover{transform:translateY(-2px);color:var(--text);border-color:rgba(124,92,255,.5);}
+
+/* 联系方式：点击复制，不跳转 */
+.contact-list{display:flex;flex-direction:column;gap:12px;margin:26px auto 12px;max-width:440px;}
+.contact-list li{
+  display:flex;align-items:center;gap:14px;padding:13px 18px;
+  border-radius:14px;background:var(--surface-2);border:1px solid var(--border);
+  transition:border-color .35s;
+}
+.contact-list li:hover{border-color:var(--border-strong);}
+.c-label{
+  font-size:.72rem;letter-spacing:.12em;text-transform:uppercase;
+  color:var(--text-3);min-width:58px;
+}
+.c-value{
+  flex:1;text-align:left;cursor:pointer;
+  font-family:ui-monospace,SFMono-Regular,Consolas,"Liberation Mono",monospace;
+  font-size:.9rem;color:var(--text);overflow-wrap:anywhere;
+  transition:color .3s;
+}
+.c-value:hover{color:var(--c2);}
+.c-value.copied{color:var(--c4);}
+.copy-hint{font-size:.76rem;color:var(--text-3);letter-spacing:.04em;}
+
+@media (max-width:520px){
+  .hero-chips li{font-size:.78rem;padding:7px 13px;}
+  .contact-list li{flex-direction:column;align-items:flex-start;gap:4px;}
+  .c-value{text-align:left;width:100%;}
 }
