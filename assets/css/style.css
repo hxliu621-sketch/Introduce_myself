@@ -146,7 +146,8 @@ body.has-pointer .cursor-glow{opacity:1;}
 }
 html[data-theme="light"] .nav.scrolled{background:rgba(244,246,252,.86);}
 
-.logo{display:flex;align-items:center;gap:2px;font-weight:800;font-size:1.18rem;letter-spacing:.06em;}
+.logo{display:flex;align-items:center;gap:9px;font-weight:800;font-size:1.1rem;letter-spacing:.02em;}
+.logo-name{font-size:.92rem;font-weight:700;letter-spacing:.02em;color:var(--text);}
 .logo-mark{
   display:grid;place-items:center;width:30px;height:30px;border-radius:10px;
   background:var(--grad-soft);border:1px solid var(--border);

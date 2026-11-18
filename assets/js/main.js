@@ -10,6 +10,81 @@
   var reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
   /* ==========================================================
+     0. 渲染个人资料（profile.js → DOM）
+     必须在下面所有观察器之前执行，否则技能条/数字没有目标节点
+     ========================================================== */
+  var PROFILE = window.PROFILE || {};
+
+  (function renderProfile() {
+    var P = PROFILE;
+
+    // 名字 / 首字母 / 邮箱
+    $$("[data-profile]").forEach(function (el) {
+      var key = el.getAttribute("data-profile");
+      if (key === "name" && P.name) el.textContent = P.name;
+      if (key === "initial" && P.initial) el.textContent = P.initial;
+      if (key === "email" && P.email) el.textContent = P.email;
+      if (key === "handle" && P.handle) el.textContent = P.handle;
+    });
+
+    // 头像：没配 avatar 就保留 HTML 里已有的默认图，绝不隐藏容器
+    var avatar = $("#avatarImg");
+    if (avatar) {
+      if (P.avatar) avatar.src = P.avatar;
+      avatar.alt = (P.name || "avatar") + " avatar";
+    }
+
+    // 联系方式
+    var mailBtn = $("#mailBtn");
+    if (mailBtn && P.email) mailBtn.href = "mailto:" + P.email;
+    var ghBtn = $("#githubBtn");
+    if (ghBtn && P.github) ghBtn.href = P.github;
+
+    // 首屏数字
+    var statsList = $("#statsList");
+    if (statsList && P.stats && P.stats.length) {
+      statsList.innerHTML = P.stats.map(function (s) {
+        return '<li><b class="count" data-count="' + (s.value || 0) + '" data-suffix="' + (s.suffix || "") + '">0</b>' +
+               '<span data-i18n="' + s.key + '"></span></li>';
+      }).join("");
+    }
+
+    // 技能条
+    var bars = $("#skillBars");
+    if (bars && P.skills && P.skills.length) {
+      bars.innerHTML = P.skills.map(function (s) {
+        var lv = Math.max(0, Math.min(100, s.level || 0));
+        return '<div class="skill" data-level="' + lv + '">' +
+                 '<div class="skill-top"><span>' + s.name + '</span><em>' + lv + '%</em></div>' +
+                 '<div class="bar"><i></i></div>' +
+               '</div>';
+      }).join("");
+    }
+
+    // 技能标签
+    var tags = $("#skillTags");
+    if (tags && P.tags && P.tags.length) {
+      tags.innerHTML = P.tags.map(function (t) {
+        return '<span class="tag">' + t + '</span>';
+      }).join("");
+    }
+
+    // 项目缩略图与链接
+    (P.projects || []).forEach(function (pr, i) {
+      var img = document.querySelector('[data-profile-thumb="' + i + '"]');
+      if (img && pr.thumb) img.src = pr.thumb;
+      var link = document.querySelector('[data-profile-link="' + i + '"]');
+      if (link && pr.url) {
+        link.href = pr.url;
+        if (/^https?:/.test(pr.url)) {
+          link.target = "_blank";
+          link.rel = "noopener";
+        }
+      }
+    });
+  })();
+
+  /* ==========================================================
      1. 语言切换
      ========================================================== */
   var LS_LANG = "yg.lang";
@@ -42,8 +117,10 @@
       if (dict[key] !== undefined) el.textContent = dict[key];
     });
 
-    // 文档标题
-    if (dict["meta.title"]) document.title = dict["meta.title"];
+    // 文档标题（支持 {name} 占位）
+    if (dict["meta.title"]) {
+      document.title = dict["meta.title"].replace(/\{name\}/g, PROFILE.name || "");
+    }
 
     // 开关态
     $$(".lang-opt").forEach(function (el) {
@@ -52,8 +129,9 @@
 
     try { localStorage.setItem(LS_LANG, lang); } catch (e) {}
 
-    // 打字机跟随语言重启
-    restartTypewriter(dict["meta.roles"] || []);
+    // 打字机跟随语言重启（角色词优先取 profile.js）
+    var roles = (PROFILE.roles && PROFILE.roles[lang]) || dict["meta.roles"] || [];
+    restartTypewriter(roles);
 
     // 切换时的模糊淡入
     if (animate && !reduceMotion) {

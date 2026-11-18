@@ -1,10 +1,10 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="zh-CN" data-theme="dark">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="description" content="YG — 个人介绍 · Personal Introduction">
-<title>YG · 个人介绍 / Introduction</title>
+<meta name="description" content="lhx — 个人介绍 · Personal Introduction">
+<title>lhx · 个人介绍 / Introduction</title>
 <!-- 尽早标记 JS 可用：CSS 靠它决定是否启用「先隐藏再进场」 -->
 <script>document.documentElement.classList.add('js');</script>
 <link rel="stylesheet" href="assets/css/style.css">
@@ -29,8 +29,9 @@
 
 <!-- 导航 -->
 <header class="nav" id="nav">
-  <a href="#home" class="logo" aria-label="YG">
-    <span class="logo-mark">Y</span><span class="logo-mark alt">G</span>
+  <a href="#home" class="logo" aria-label="home">
+    <span class="logo-mark" data-profile="initial">L</span>
+    <span class="logo-name" data-profile="name">lhx</span>
   </a>
 
   <nav class="nav-links" id="navLinks">
@@ -78,7 +79,7 @@
       <p class="hero-eyebrow reveal" data-i18n="hero.eyebrow">你好，我是</p>
 
       <h1 class="hero-title reveal">
-        <span class="name-glow">Y</span><span class="name-glow">G</span>
+        <span class="name-glow" data-profile="name">lhx</span>
       </h1>
 
       <p class="hero-role reveal">
@@ -86,7 +87,7 @@
       </p>
 
       <p class="hero-desc reveal" data-i18n="hero.desc">
-        一个喜欢把想法变成能跑起来的页面的开发者。专注静态前端、交互动画与细腻的视觉体验。
+        自己做工具，也做页面。喜欢从代码和协议两头拆问题，把重复的事写成脚本。
       </p>
 
       <div class="hero-cta reveal">
@@ -97,11 +98,8 @@
         <a href="#contact" class="btn btn-ghost" data-i18n="hero.cta2">联系我</a>
       </div>
 
-      <ul class="stats reveal">
-        <li><b class="count" data-count="5" data-suffix="+">0</b><span data-i18n="stats.years">年经验</span></li>
-        <li><b class="count" data-count="32" data-suffix="+">0</b><span data-i18n="stats.projects">个项目</span></li>
-        <li><b class="count" data-count="99" data-suffix="%">0</b><span data-i18n="stats.passion">热爱程度</span></li>
-      </ul>
+      <!-- 数字统计：由 profile.js 的 stats 渲染 -->
+      <ul class="stats reveal" id="statsList"></ul>
     </div>
 
     <a href="#about" class="scroll-hint" aria-label="scroll">
@@ -162,35 +160,9 @@
     </div>
 
     <div class="skills-layout">
-      <div class="skill-bars reveal">
-        <div class="skill" data-level="95">
-          <div class="skill-top"><span>HTML / CSS</span><em>95%</em></div>
-          <div class="bar"><i></i></div>
-        </div>
-        <div class="skill" data-level="90">
-          <div class="skill-top"><span>JavaScript</span><em>90%</em></div>
-          <div class="bar"><i></i></div>
-        </div>
-        <div class="skill" data-level="82">
-          <div class="skill-top"><span>TypeScript</span><em>82%</em></div>
-          <div class="bar"><i></i></div>
-        </div>
-        <div class="skill" data-level="76">
-          <div class="skill-top"><span>Canvas / WebGL</span><em>76%</em></div>
-          <div class="bar"><i></i></div>
-        </div>
-        <div class="skill" data-level="70">
-          <div class="skill-top"><span>UI / UX Design</span><em>70%</em></div>
-          <div class="bar"><i></i></div>
-        </div>
-      </div>
-
-      <div class="skill-tags reveal">
-        <span class="tag">Vite</span><span class="tag">Sass</span><span class="tag">GSAP</span>
-        <span class="tag">Three.js</span><span class="tag">Tailwind</span><span class="tag">Figma</span>
-        <span class="tag">Git</span><span class="tag">Node</span><span class="tag">SEO</span>
-        <span class="tag">A11y</span><span class="tag">GitHub Pages</span><span class="tag">PWA</span>
-      </div>
+      <!-- 技能条与标签都由 profile.js 渲染 -->
+      <div class="skill-bars reveal" id="skillBars"></div>
+      <div class="skill-tags reveal" id="skillTags"></div>
     </div>
   </section>
 
@@ -205,14 +177,14 @@
     <div class="project-grid">
       <article class="project glass reveal" data-tilt>
         <div class="project-thumb">
-          <img src="assets/images/thumb-1.svg" alt="project one">
+          <img src="assets/images/thumb-1.svg" alt="project one" data-profile-thumb="0">
           <span class="thumb-shine"></span>
         </div>
         <div class="project-body">
-          <div class="project-meta"><span class="pill">HTML/CSS</span><span class="pill">Canvas</span></div>
+          <div class="project-meta"><span class="pill">HTML / CSS</span><span class="pill">Vanilla JS</span></div>
           <h3 data-i18n="projects.p1.title">极简作品集</h3>
           <p data-i18n="projects.p1.text">零依赖的单页作品集，滚动驱动的视差与视口动画，首屏 40KB 以内。</p>
-          <a href="#projects" class="link-arrow"><span data-i18n="projects.view">查看</span>
+          <a href="#projects" class="link-arrow" data-profile-link="0"><span data-i18n="projects.view">查看</span>
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M5 12h13M13 6l6 6-6 6"/></svg>
           </a>
         </div>
@@ -220,14 +192,14 @@
 
       <article class="project glass reveal" data-tilt>
         <div class="project-thumb">
-          <img src="assets/images/thumb-2.svg" alt="project two">
+          <img src="assets/images/thumb-2.svg" alt="project two" data-profile-thumb="1">
           <span class="thumb-shine"></span>
         </div>
         <div class="project-body">
-          <div class="project-meta"><span class="pill">JavaScript</span><span class="pill">i18n</span></div>
+          <div class="project-meta"><span class="pill">Python</span><span class="pill">CLI</span></div>
           <h3 data-i18n="projects.p2.title">双语文档站</h3>
           <p data-i18n="projects.p2.text">中英实时切换的文档模板，路由级懒加载与全文检索全部在浏览器端完成。</p>
-          <a href="#projects" class="link-arrow"><span data-i18n="projects.view">查看</span>
+          <a href="#projects" class="link-arrow" data-profile-link="1"><span data-i18n="projects.view">查看</span>
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M5 12h13M13 6l6 6-6 6"/></svg>
           </a>
         </div>
@@ -235,14 +207,14 @@
 
       <article class="project glass reveal" data-tilt>
         <div class="project-thumb">
-          <img src="assets/images/thumb-3.svg" alt="project three">
+          <img src="assets/images/thumb-3.svg" alt="project three" data-profile-thumb="2">
           <span class="thumb-shine"></span>
         </div>
         <div class="project-body">
-          <div class="project-meta"><span class="pill">WebGL</span><span class="pill">Motion</span></div>
+          <div class="project-meta"><span class="pill">HTTP</span><span class="pill">Debug</span></div>
           <h3 data-i18n="projects.p3.title">交互实验室</h3>
           <p data-i18n="projects.p3.text">一堆小实验：粒子场、液态按钮、可拖拽的物理卡片，用来验证动效手感。</p>
-          <a href="#projects" class="link-arrow"><span data-i18n="projects.view">查看</span>
+          <a href="#projects" class="link-arrow" data-profile-link="2"><span data-i18n="projects.view">查看</span>
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M5 12h13M13 6l6 6-6 6"/></svg>
           </a>
         </div>
@@ -292,10 +264,10 @@
       <h2 data-i18n="contact.title">一起做点什么？</h2>
       <p data-i18n="contact.text">有想法、有页面、有想改的东西，都可以直接找我聊。</p>
       <div class="contact-actions">
-        <a href="mailto:hxliu621@gmail.com" class="btn btn-primary" data-i18n="contact.mail">发邮件</a>
-        <a href="https://github.com/" target="_blank" rel="noopener" class="btn btn-ghost">GitHub</a>
+        <a href="mailto:hxliu621@gmail.com" class="btn btn-primary" data-i18n="contact.mail" id="mailBtn">发邮件</a>
+        <a href="https://github.com/" target="_blank" rel="noopener" class="btn btn-ghost" id="githubBtn">GitHub</a>
       </div>
-      <p class="contact-mail">hxliu621@gmail.com</p>
+      <p class="contact-mail" data-profile="email">hxliu621@gmail.com</p>
     </div>
   </section>
 
@@ -305,9 +277,10 @@
   <svg class="wave" viewBox="0 0 1440 110" preserveAspectRatio="none" aria-hidden="true">
     <path d="M0,60 C240,110 420,10 720,50 C1000,86 1180,20 1440,58 L1440,110 L0,110 Z"/>
   </svg>
-  <p><span data-i18n="footer.built">用原生 HTML / CSS / JS 手写</span> · <span class="year" id="year"></span> · YG</p>
+  <p><span data-i18n="footer.built">用原生 HTML / CSS / JS 手写</span> · <span class="year" id="year"></span> · <span data-profile="name">lhx</span></p>
 </footer>
 
+<script src="assets/js/profile.js"></script>
 <script src="assets/js/i18n.js"></script>
 <script src="assets/js/main.js"></script>
 </body>
