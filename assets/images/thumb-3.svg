@@ -1,37 +1,75 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 400" width="640" height="400">
   <defs>
-    <linearGradient id="g3" x1="0" y1="0" x2="1" y2="1">
-      <stop offset="0%" stop-color="#150f2b"/><stop offset="100%" stop-color="#0a0a1c"/>
+    <linearGradient id="r3" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#121a30"/><stop offset="100%" stop-color="#080c18"/>
     </linearGradient>
-    <radialGradient id="core" cx="50%" cy="50%" r="50%">
-      <stop offset="0%" stop-color="#ff5c8a" stop-opacity=".9"/>
-      <stop offset="55%" stop-color="#7c5cff" stop-opacity=".45"/>
-      <stop offset="100%" stop-color="#25d3ff" stop-opacity="0"/>
-    </radialGradient>
-    <linearGradient id="acc3" x1="0" y1="1" x2="1" y2="0">
-      <stop offset="0%" stop-color="#ff5c8a"/><stop offset="50%" stop-color="#7c5cff"/><stop offset="100%" stop-color="#25d3ff"/>
+    <linearGradient id="blk" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#ffffff" stop-opacity=".12"/>
+      <stop offset="100%" stop-color="#ffffff" stop-opacity=".04"/>
+    </linearGradient>
+    <linearGradient id="acc" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#25d3ff"/><stop offset="100%" stop-color="#3ef2b0"/>
+    </linearGradient>
+    <linearGradient id="bar" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#7c5cff"/><stop offset="100%" stop-color="#25d3ff"/>
     </linearGradient>
   </defs>
-  <rect width="640" height="400" fill="url(#g3)"/>
-  <circle cx="320" cy="200" r="190" fill="url(#core)" opacity=".55"/>
-  <g fill="none" stroke="url(#acc3)" stroke-opacity=".55" stroke-width="1.3">
-    <ellipse cx="320" cy="200" rx="170" ry="66"/>
-    <ellipse cx="320" cy="200" rx="170" ry="66" transform="rotate(60 320 200)"/>
-    <ellipse cx="320" cy="200" rx="170" ry="66" transform="rotate(120 320 200)"/>
-    <circle cx="320" cy="200" r="118" stroke-dasharray="4 8"/>
+
+  <rect width="640" height="400" fill="url(#r3)"/>
+  <g stroke="#8ea2ff" stroke-opacity=".07" stroke-width="1">
+    <path d="M0 80H640M0 160H640M0 240H640M0 320H640M80 0V400M160 0V400M240 0V400M320 0V400M400 0V400M480 0V400M560 0V400"/>
   </g>
-  <g fill="#ffffff">
-    <circle cx="490" cy="200" r="5" opacity=".9"/>
-    <circle cx="235" cy="130" r="4" opacity=".8"/>
-    <circle cx="320" cy="318" r="4.5" opacity=".85"/>
-    <circle cx="150" cy="250" r="3.4" opacity=".7"/>
-    <circle cx="430" cy="90" r="3" opacity=".6"/>
+
+  <!-- 网络层：conv -> conv -> pool -> fc -->
+  <g>
+    <!-- 输入 -->
+    <rect x="44" y="112" width="72" height="112" rx="8" fill="url(#blk)" stroke="#ffffff" stroke-opacity=".16"/>
+    <g stroke="#6f7b98" stroke-width="1" stroke-opacity=".6">
+      <path d="M44 140h72M44 168h72M44 196h72M68 112v112M92 112v112"/>
+    </g>
+    <text x="80" y="248" font-family="ui-monospace,Consolas,monospace" font-size="10" fill="#8590ac" text-anchor="middle">3×224×224</text>
+
+    <!-- 残差块 1 -->
+    <rect x="148" y="120" width="84" height="96" rx="8" fill="url(#blk)" stroke="#25d3ff" stroke-opacity=".45"/>
+    <text x="190" y="163" font-family="ui-monospace,Consolas,monospace" font-size="10.5" fill="#7fe7ff" text-anchor="middle">3×3 conv</text>
+    <text x="190" y="180" font-family="ui-monospace,Consolas,monospace" font-size="10.5" fill="#7fe7ff" text-anchor="middle">BN · ReLU</text>
+    <text x="190" y="240" font-family="ui-monospace,Consolas,monospace" font-size="10" fill="#8590ac" text-anchor="middle">64×112×112</text>
+
+    <!-- 残差块 2 -->
+    <rect x="264" y="120" width="84" height="96" rx="8" fill="url(#blk)" stroke="#3ef2b0" stroke-opacity=".45"/>
+    <text x="306" y="163" font-family="ui-monospace,Consolas,monospace" font-size="10.5" fill="#8cf5cd" text-anchor="middle">3×3 conv ×2</text>
+    <text x="306" y="180" font-family="ui-monospace,Consolas,monospace" font-size="10.5" fill="#8cf5cd" text-anchor="middle">+ skip</text>
+    <text x="306" y="240" font-family="ui-monospace,Consolas,monospace" font-size="10" fill="#8590ac" text-anchor="middle">128×56×56</text>
+
+    <!-- 全局池化 -->
+    <rect x="380" y="136" width="62" height="64" rx="8" fill="url(#blk)" stroke="#ffffff" stroke-opacity=".16"/>
+    <text x="411" y="173" font-family="ui-monospace,Consolas,monospace" font-size="10" fill="#b6c1da" text-anchor="middle">avg</text>
+    <text x="411" y="220" font-family="ui-monospace,Consolas,monospace" font-size="10" fill="#8590ac" text-anchor="middle">512</text>
+
+    <!-- FC 输出 -->
+    <rect x="474" y="136" width="122" height="64" rx="8" fill="url(#blk)" stroke="#7c5cff" stroke-opacity=".55"/>
+    <text x="535" y="160" font-family="ui-monospace,Consolas,monospace" font-size="10" fill="#b9a7ff" text-anchor="middle">fc · softmax</text>
+    <rect x="486" y="172" width="98" height="6" rx="3" fill="#ffffff" fill-opacity=".12"/>
+    <rect x="486" y="172" width="78" height="6" rx="3" fill="url(#bar)"/>
+    <text x="535" y="192" font-family="ui-monospace,Consolas,monospace" font-size="9.5" fill="#8cf5cd" text-anchor="middle">cat 0.91</text>
   </g>
-  <circle cx="320" cy="200" r="34" fill="url(#acc3)" fill-opacity=".85"/>
-  <circle cx="320" cy="200" r="12" fill="#0a0a1c"/>
-  <g stroke="#25d3ff" stroke-opacity=".5" stroke-width="1">
-    <path d="M320 28v34M320 338v34M148 200h-34M526 200h34"/>
+
+  <!-- 连接箭头 -->
+  <g stroke="#25d3ff" stroke-opacity=".55" stroke-width="1.4" fill="none" stroke-linecap="round">
+    <path d="M116 168 H142 M136 163 L142 168 L136 173"/>
+    <path d="M232 168 H258 M252 163 L258 168 L252 173"/>
+    <path d="M348 168 H374 M368 163 L374 168 L368 173"/>
+    <path d="M442 168 H468 M462 163 L468 168 L462 173"/>
   </g>
-  <text x="320" y="378" font-family="ui-monospace,Consolas,monospace" font-size="12"
-        fill="#a9b4cf" fill-opacity=".75" text-anchor="middle">motion · physics · particles</text>
+  <!-- 残差跳线 -->
+  <path d="M190 120 C190 92 306 92 306 120" fill="none" stroke="#ff5c8a" stroke-opacity=".6"
+        stroke-width="1.4" stroke-dasharray="4 4"/>
+
+  <!-- loss 曲线：从高处（左上）降到低位（右下） -->
+  <g>
+    <path d="M44 282 C114 288 144 312 214 324 C284 334 338 340 418 344 C498 348 546 350 596 352"
+          fill="none" stroke="url(#acc)" stroke-width="2"/>
+    <circle cx="596" cy="352" r="3.4" fill="#3ef2b0"/>
+    <text x="596" y="376" font-family="ui-monospace,Consolas,monospace" font-size="10" fill="#8590ac" text-anchor="end">train loss · 30 epochs</text>
+  </g>
 </svg>

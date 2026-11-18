@@ -323,6 +323,8 @@
 
   /* ==========================================================
      6. 技能条
+     观察整个容器而不是每一条：一次全部一起填充，
+     不会因为某一条恰好落在视口边缘而漏动画
      ========================================================== */
   (function initBars() {
     var skills = $$(".skill");
@@ -333,31 +335,41 @@
       var bar = el.querySelector(".bar i");
       var label = el.querySelector(".skill-top em");
       if (bar) {
-        // 下一帧再写宽度，保证过渡生效
         requestAnimationFrame(function () { bar.style.width = level + "%"; });
       }
       if (label && !reduceMotion) {
-        var from = 0;
         var t0 = performance.now();
         (function step(now) {
           var p = Math.min(1, (now - t0) / 1200);
           var eased = 1 - Math.pow(1 - p, 3);
-          label.textContent = Math.round(from + (level - from) * eased) + "%";
+          label.textContent = Math.round(level * eased) + "%";
           if (p < 1) requestAnimationFrame(step);
         })(t0);
       }
     }
 
-    if (!("IntersectionObserver" in window)) { skills.forEach(fill); return; }
+    function fillAll() { skills.forEach(fill); }
 
+    if (!("IntersectionObserver" in window)) { fillAll(); return; }
+
+    var target = $("#skillBars") || skills[0].parentElement;
     var obs = new IntersectionObserver(function (entries) {
       entries.forEach(function (en) {
         if (!en.isIntersecting) return;
-        fill(en.target);
-        obs.unobserve(en.target);
+        fillAll();
+        obs.disconnect();
       });
-    }, { threshold: 0.35 });
-    skills.forEach(function (s) { obs.observe(s); });
+    }, { threshold: 0.15 });
+    obs.observe(target);
+
+    // 兜底：滚动到技能区附近但观察器没回调时，直接填充
+    window.addEventListener("scroll", function once() {
+      if (target.getBoundingClientRect().top < window.innerHeight) {
+        fillAll();
+        obs.disconnect();
+        window.removeEventListener("scroll", once);
+      }
+    }, { passive: true });
   })();
 
   /* ==========================================================
