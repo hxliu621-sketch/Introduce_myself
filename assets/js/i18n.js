@@ -1,4 +1,4 @@
-/* ============================================================
+﻿/* ============================================================
    i18n.js — 中英字符串表（只放文案）
    ============================================================ */
 
@@ -43,7 +43,7 @@ window.I18N = {
     "contact.copyHint": "点击邮箱或 GitHub 即可复制",
     "contact.copied": "已复制到剪贴板",
 
-    "footer.built": "用原生 HTML / CSS / JS 手写"
+    "footer.built": "纯 AI 生成"
   },
 
   /* ---------------- English ---------------- */
@@ -85,6 +85,6 @@ window.I18N = {
     "contact.copyHint": "Click the email or GitHub to copy",
     "contact.copied": "Copied to clipboard",
 
-    "footer.built": "Hand-written in vanilla HTML / CSS / JS"
+    "footer.built": "Generated entirely by AI"
   }
 };

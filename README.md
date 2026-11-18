@@ -1,9 +1,9 @@
-# 个人简介页 / Personal Profile
+﻿# 个人简介页 / Personal Profile
 
-一个**零依赖**的单页个人简介：纯手写 HTML / CSS / JS，中英实时切换、深浅双主题、粒子与进场动效。
+一个**零依赖**的单页个人简介：由 AI 全程生成的纯静态 HTML / CSS / JS，中英实时切换、深浅双主题、粒子与进场动效。
 **没有任何跳转**——顶栏只有语言和主题两个按钮，联系方式点击即复制到剪贴板。
 
-> A zero-dependency one-page profile. Hand-written HTML / CSS / JS, instant ZH ⇄ EN switching, dark/light themes, particle background. **No links anywhere** — contact info copies to clipboard on click.
+> A zero-dependency one-page profile, generated entirely by AI — plain HTML / CSS / JS, instant ZH ⇄ EN switching, dark/light themes, particle background. **No links anywhere** — contact info copies to clipboard on click.
 
 ---
 
@@ -26,7 +26,7 @@ window.PROFILE = {
   name: "lhx",                    // 名字（首屏大字、logo、页脚）
   initial: "L",                   // logo 上的字母
   email: "hxliu621@gmail.com",    // 联系卡片显示与复制的内容
-  github: "github.com/lhx",       // ← 换成你的用户名
+  github: "github.com/hxliu621-sketch",   // 你的 GitHub 主页
   roles: { zh: [...], en: [...] } // 打字机循环的角色词
 };
 ```
