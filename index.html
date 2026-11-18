@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="YG — 个人介绍 · Personal Introduction">
+<title>YG · 个人介绍 / Introduction</title>
+<!-- 尽早标记 JS 可用：CSS 靠它决定是否启用「先隐藏再进场」 -->
+<script>document.documentElement.classList.add('js');</script>
+<link rel="stylesheet" href="assets/css/style.css">
+<link rel="icon" href="assets/images/avatar.svg" type="image/svg+xml">
+</head>
+<body>
+
+<!-- 顶部滚动进度 -->
+<div class="scroll-progress"><span id="progressBar"></span></div>
+
+<!-- 鼠标光晕 -->
+<div class="cursor-glow" id="cursorGlow"></div>
+
+<!-- 背景层：极光 + 粒子 -->
+<canvas id="bg-canvas"></canvas>
+<div class="aurora">
+  <span class="blob b1"></span>
+  <span class="blob b2"></span>
+  <span class="blob b3"></span>
+</div>
+<div class="grain"></div>
+
+<!-- 导航 -->
+<header class="nav" id="nav">
+  <a href="#home" class="logo" aria-label="YG">
+    <span class="logo-mark">Y</span><span class="logo-mark alt">G</span>
+  </a>
+
+  <nav class="nav-links" id="navLinks">
+    <a href="#home"     class="nav-link active" data-i18n="nav.home">首页</a>
+    <a href="#about"    class="nav-link" data-i18n="nav.about">关于</a>
+    <a href="#skills"   class="nav-link" data-i18n="nav.skills">技能</a>
+    <a href="#projects" class="nav-link" data-i18n="nav.projects">项目</a>
+    <a href="#contact"  class="nav-link" data-i18n="nav.contact">联系</a>
+  </nav>
+
+  <div class="nav-actions">
+    <!-- 中英切换 -->
+    <button class="lang-switch" id="langSwitch" aria-label="Switch language">
+      <span class="lang-opt" data-lang="zh">中</span>
+      <span class="lang-opt" data-lang="en">EN</span>
+      <span class="lang-thumb" id="langThumb"></span>
+    </button>
+
+    <!-- 主题切换 -->
+    <button class="theme-switch" id="themeSwitch" aria-label="Toggle theme">
+      <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round">
+        <circle cx="12" cy="12" r="4.2"/><path d="M12 2.5v2.2M12 19.3v2.2M2.5 12h2.2M19.3 12h2.2M5.2 5.2l1.6 1.6M17.2 17.2l1.6 1.6M18.8 5.2l-1.6 1.6M6.8 17.2l-1.6 1.6"/>
+      </svg>
+      <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round">
+        <path d="M20 14.5A8.5 8.5 0 1 1 9.5 4a6.8 6.8 0 0 0 10.5 10.5Z"/>
+      </svg>
+    </button>
+
+    <button class="burger" id="burger" aria-label="Menu"><span></span><span></span><span></span></button>
+  </div>
+</header>
+
+<main>
+
+  <!-- ========== HERO ========== -->
+  <section class="section hero" id="home">
+    <div class="hero-inner">
+      <div class="avatar-wrap reveal">
+        <div class="avatar-ring"></div>
+        <div class="avatar-ring ring-2"></div>
+        <img src="assets/images/avatar.svg" alt="avatar" class="avatar" id="avatarImg">
+        <span class="status-dot" title="available"></span>
+      </div>
+
+      <p class="hero-eyebrow reveal" data-i18n="hero.eyebrow">你好，我是</p>
+
+      <h1 class="hero-title reveal">
+        <span class="name-glow">Y</span><span class="name-glow">G</span>
+      </h1>
+
+      <p class="hero-role reveal">
+        <span id="typewriter" class="typewriter-text"></span><span class="caret"></span>
+      </p>
+
+      <p class="hero-desc reveal" data-i18n="hero.desc">
+        一个喜欢把想法变成能跑起来的页面的开发者。专注静态前端、交互动画与细腻的视觉体验。
+      </p>
+
+      <div class="hero-cta reveal">
+        <a href="#projects" class="btn btn-primary">
+          <span data-i18n="hero.cta1">看看我的项目</span>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M5 12h13M13 6l6 6-6 6"/></svg>
+        </a>
+        <a href="#contact" class="btn btn-ghost" data-i18n="hero.cta2">联系我</a>
+      </div>
+
+      <ul class="stats reveal">
+        <li><b class="count" data-count="5" data-suffix="+">0</b><span data-i18n="stats.years">年经验</span></li>
+        <li><b class="count" data-count="32" data-suffix="+">0</b><span data-i18n="stats.projects">个项目</span></li>
+        <li><b class="count" data-count="99" data-suffix="%">0</b><span data-i18n="stats.passion">热爱程度</span></li>
+      </ul>
+    </div>
+
+    <a href="#about" class="scroll-hint" aria-label="scroll">
+      <span class="mouse"><span class="wheel"></span></span>
+      <span class="scroll-text" data-i18n="hero.scroll">向下滚动</span>
+    </a>
+  </section>
+
+  <!-- ========== ABOUT ========== -->
+  <section class="section" id="about">
+    <div class="section-head reveal">
+      <span class="section-index">01</span>
+      <h2 data-i18n="about.title">关于我</h2>
+      <p class="section-sub" data-i18n="about.sub">把复杂的东西做简单，把简单的东西做漂亮。</p>
+    </div>
+
+    <div class="about-grid">
+      <div class="about-card glass reveal" data-tilt>
+        <div class="card-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"><path d="M8 6 3 12l5 6M16 6l5 6-5 6M13.5 4l-3 16"/></svg>
+        </div>
+        <h3 data-i18n="about.c1.title">写代码</h3>
+        <p data-i18n="about.c1.text">语义化的 HTML、可维护的 CSS 架构、不依赖框架也能跑的原生 JS。</p>
+      </div>
+
+      <div class="about-card glass reveal" data-tilt>
+        <div class="card-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"><path d="M12 3v18M3 12h18"/><circle cx="12" cy="12" r="9"/></svg>
+        </div>
+        <h3 data-i18n="about.c2.title">做动效</h3>
+        <p data-i18n="about.c2.text">克制的过渡、跟手的曲线，动画是为了让信息更好被理解，而不是更花哨。</p>
+      </div>
+
+      <div class="about-card glass reveal" data-tilt>
+        <div class="card-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"><path d="M4 19V9a3 3 0 0 1 3-3h4l2-3 2 3h2a3 3 0 0 1 3 3v10"/><path d="M9 19v-4h6v4"/></svg>
+        </div>
+        <h3 data-i18n="about.c3.title">重细节</h3>
+        <p data-i18n="about.c3.text">间距、对比、焦点态、键盘可达性——这些看不见的地方决定质感。</p>
+      </div>
+
+      <div class="about-card glass reveal" data-tilt>
+        <div class="card-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"><path d="M12 21s-7-4.3-7-9.5A4.5 4.5 0 0 1 12 8a4.5 4.5 0 0 1 7 3.5C19 16.7 12 21 12 21Z"/></svg>
+        </div>
+        <h3 data-i18n="about.c4.title">爱折腾</h3>
+        <p data-i18n="about.c4.text">新工具先动手跑一遍再评价，踩过的坑都变成下一次的设计约束。</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== SKILLS ========== -->
+  <section class="section" id="skills">
+    <div class="section-head reveal">
+      <span class="section-index">02</span>
+      <h2 data-i18n="skills.title">技能</h2>
+      <p class="section-sub" data-i18n="skills.sub">每天都在长的一棵树，不是一张清单。</p>
+    </div>
+
+    <div class="skills-layout">
+      <div class="skill-bars reveal">
+        <div class="skill" data-level="95">
+          <div class="skill-top"><span>HTML / CSS</span><em>95%</em></div>
+          <div class="bar"><i></i></div>
+        </div>
+        <div class="skill" data-level="90">
+          <div class="skill-top"><span>JavaScript</span><em>90%</em></div>
+          <div class="bar"><i></i></div>
+        </div>
+        <div class="skill" data-level="82">
+          <div class="skill-top"><span>TypeScript</span><em>82%</em></div>
+          <div class="bar"><i></i></div>
+        </div>
+        <div class="skill" data-level="76">
+          <div class="skill-top"><span>Canvas / WebGL</span><em>76%</em></div>
+          <div class="bar"><i></i></div>
+        </div>
+        <div class="skill" data-level="70">
+          <div class="skill-top"><span>UI / UX Design</span><em>70%</em></div>
+          <div class="bar"><i></i></div>
+        </div>
+      </div>
+
+      <div class="skill-tags reveal">
+        <span class="tag">Vite</span><span class="tag">Sass</span><span class="tag">GSAP</span>
+        <span class="tag">Three.js</span><span class="tag">Tailwind</span><span class="tag">Figma</span>
+        <span class="tag">Git</span><span class="tag">Node</span><span class="tag">SEO</span>
+        <span class="tag">A11y</span><span class="tag">GitHub Pages</span><span class="tag">PWA</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== PROJECTS ========== -->
+  <section class="section" id="projects">
+    <div class="section-head reveal">
+      <span class="section-index">03</span>
+      <h2 data-i18n="projects.title">项目</h2>
+      <p class="section-sub" data-i18n="projects.sub">几个自己真正做完、并一直在维护的东西。</p>
+    </div>
+
+    <div class="project-grid">
+      <article class="project glass reveal" data-tilt>
+        <div class="project-thumb">
+          <img src="assets/images/thumb-1.svg" alt="project one">
+          <span class="thumb-shine"></span>
+        </div>
+        <div class="project-body">
+          <div class="project-meta"><span class="pill">HTML/CSS</span><span class="pill">Canvas</span></div>
+          <h3 data-i18n="projects.p1.title">极简作品集</h3>
+          <p data-i18n="projects.p1.text">零依赖的单页作品集，滚动驱动的视差与视口动画，首屏 40KB 以内。</p>
+          <a href="#projects" class="link-arrow"><span data-i18n="projects.view">查看</span>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M5 12h13M13 6l6 6-6 6"/></svg>
+          </a>
+        </div>
+      </article>
+
+      <article class="project glass reveal" data-tilt>
+        <div class="project-thumb">
+          <img src="assets/images/thumb-2.svg" alt="project two">
+          <span class="thumb-shine"></span>
+        </div>
+        <div class="project-body">
+          <div class="project-meta"><span class="pill">JavaScript</span><span class="pill">i18n</span></div>
+          <h3 data-i18n="projects.p2.title">双语文档站</h3>
+          <p data-i18n="projects.p2.text">中英实时切换的文档模板，路由级懒加载与全文检索全部在浏览器端完成。</p>
+          <a href="#projects" class="link-arrow"><span data-i18n="projects.view">查看</span>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M5 12h13M13 6l6 6-6 6"/></svg>
+          </a>
+        </div>
+      </article>
+
+      <article class="project glass reveal" data-tilt>
+        <div class="project-thumb">
+          <img src="assets/images/thumb-3.svg" alt="project three">
+          <span class="thumb-shine"></span>
+        </div>
+        <div class="project-body">
+          <div class="project-meta"><span class="pill">WebGL</span><span class="pill">Motion</span></div>
+          <h3 data-i18n="projects.p3.title">交互实验室</h3>
+          <p data-i18n="projects.p3.text">一堆小实验：粒子场、液态按钮、可拖拽的物理卡片，用来验证动效手感。</p>
+          <a href="#projects" class="link-arrow"><span data-i18n="projects.view">查看</span>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M5 12h13M13 6l6 6-6 6"/></svg>
+          </a>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <!-- ========== TIMELINE ========== -->
+  <section class="section" id="timeline">
+    <div class="section-head reveal">
+      <span class="section-index">04</span>
+      <h2 data-i18n="time.title">经历</h2>
+      <p class="section-sub" data-i18n="time.sub">一条往前的线，每一步都算数。</p>
+    </div>
+
+    <ol class="timeline">
+      <li class="reveal">
+        <span class="dot"></span>
+        <time>2022</time>
+        <h4 data-i18n="time.t1.title">第一次把页面放到线上</h4>
+        <p data-i18n="time.t1.text">从 GitHub Pages 开始，理解了“能被访问”和“能跑”之间的差距。</p>
+      </li>
+      <li class="reveal">
+        <span class="dot"></span>
+        <time>2023</time>
+        <h4 data-i18n="time.t2.title">沉迷动效与细节</h4>
+        <p data-i18n="time.t2.text">开始研究缓动曲线、滚动时间轴与性能预算，动画从装饰变成语言。</p>
+      </li>
+      <li class="reveal">
+        <span class="dot"></span>
+        <time>2024</time>
+        <h4 data-i18n="time.t3.title">做完整的产品而不是页面</h4>
+        <p data-i18n="time.t3.text">接手从设计到部署的全流程，学会在约束里做取舍。</p>
+      </li>
+      <li class="reveal">
+        <span class="dot"></span>
+        <time data-i18n="time.now">现在</time>
+        <h4 data-i18n="time.t4.title">持续输出，持续重构</h4>
+        <p data-i18n="time.t4.text">把每一次重写都当成一次对旧自己的复盘。</p>
+      </li>
+    </ol>
+  </section>
+
+  <!-- ========== CONTACT ========== -->
+  <section class="section contact" id="contact">
+    <div class="contact-card glass reveal">
+      <h2 data-i18n="contact.title">一起做点什么？</h2>
+      <p data-i18n="contact.text">有想法、有页面、有想改的东西，都可以直接找我聊。</p>
+      <div class="contact-actions">
+        <a href="mailto:hxliu621@gmail.com" class="btn btn-primary" data-i18n="contact.mail">发邮件</a>
+        <a href="https://github.com/" target="_blank" rel="noopener" class="btn btn-ghost">GitHub</a>
+      </div>
+      <p class="contact-mail">hxliu621@gmail.com</p>
+    </div>
+  </section>
+
+</main>
+
+<footer class="footer">
+  <svg class="wave" viewBox="0 0 1440 110" preserveAspectRatio="none" aria-hidden="true">
+    <path d="M0,60 C240,110 420,10 720,50 C1000,86 1180,20 1440,58 L1440,110 L0,110 Z"/>
+  </svg>
+  <p><span data-i18n="footer.built">用原生 HTML / CSS / JS 手写</span> · <span class="year" id="year"></span> · YG</p>
+</footer>
+
+<script src="assets/js/i18n.js"></script>
+<script src="assets/js/main.js"></script>
+</body>
+</html>
